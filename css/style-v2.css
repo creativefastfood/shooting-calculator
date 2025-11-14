@@ -510,22 +510,76 @@
    ============================================ */
 
 @media print {
+    /* Скрываем элементы интерфейса */
+    .header,
+    .modal-header,
+    .modal-footer,
+    .btn,
+    .portfolio-button {
+        display: none !important;
+    }
+
+    /* Убираем фон и тени */
+    body {
+        background: white;
+    }
+
+    .modal {
+        display: block !important;
+        position: static !important;
+        background: white !important;
+    }
+
+    .modal-content {
+        box-shadow: none !important;
+        max-width: 100% !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .proposal-content {
+        padding: 20mm !important;
+    }
+
+    /* Элементы маржинальности для печати */
     .margin-dashboard-card {
         break-inside: avoid;
         box-shadow: none;
         border: 1px solid #ddd;
+        page-break-inside: avoid;
     }
 
     .margin-progress-bar {
         border: 1px solid #ddd;
-    }
-
-    .portfolio-button {
-        display: none;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
     }
 
     .badge {
         border: 1px solid #ddd;
         page-break-inside: avoid;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* Таблицы КП */
+    table {
+        page-break-inside: avoid;
+        width: 100% !important;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    /* Сохраняем цвета для печати */
+    * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
     }
 }
