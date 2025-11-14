@@ -342,6 +342,17 @@ class ShootingCalculatorV2 {
         if (qtyElement) qtyElement.textContent = '1';
     }
 
+    updateCartQuantity(serviceId, delta) {
+        const item = this.cart.find(i => i.id === serviceId);
+        if (!item) return;
+
+        item.quantity = Math.max(1, item.quantity + delta);
+
+        this.renderCart();
+        this.updateMarginDashboard();
+        this.saveCartToStorage();
+    }
+
     removeFromCart(serviceId) {
         this.cart = this.cart.filter(item => item.id !== serviceId);
         this.renderCart();
@@ -383,6 +394,11 @@ class ShootingCalculatorV2 {
                     </div>
                     ${badges}
                     <div class="cart-item-footer">
+                        <div class="cart-quantity-control">
+                            <button class="cart-qty-btn" onclick="app.updateCartQuantity('${item.id}', -1)">−</button>
+                            <span class="cart-qty-value">${item.quantity}</span>
+                            <button class="cart-qty-btn" onclick="app.updateCartQuantity('${item.id}', 1)">+</button>
+                        </div>
                         <button class="remove-btn" onclick="app.removeFromCart('${item.id}')">Удалить</button>
                     </div>
                 </div>

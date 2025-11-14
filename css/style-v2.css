@@ -290,6 +290,51 @@
 }
 
 /* ============================================
+   УПРАВЛЕНИЕ КОЛИЧЕСТВОМ В КОРЗИНЕ
+   ============================================ */
+
+.cart-quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-qty-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.cart-qty-btn:hover {
+    background: #f3f4f6;
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.cart-qty-btn:active {
+    transform: scale(0.95);
+}
+
+.cart-qty-value {
+    min-width: 32px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+/* ============================================
    БЕЙДЖИ УСЛУГ
    ============================================ */
 
