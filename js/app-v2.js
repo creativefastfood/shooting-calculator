@@ -175,7 +175,11 @@ class ShootingCalculatorV2 {
         // Regular services
         if (category.services) {
             category.services.forEach(service => {
-                html += this.createServiceItemV2(service, category.id);
+                html += this.createServiceItemV2({
+                    ...service,
+                    name: service.name || service.type,
+                    id: service.id || `${category.id}_${(service.name || service.type)}`.replace(/\s/g, '_').replace(/[()]/g, '')
+                }, category.id);
             });
         }
 
@@ -728,24 +732,20 @@ class ShootingCalculatorV2 {
         const totals = this.calculateTotals();
 
         let html = `
-            <div style="max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif;">
-                <div style="text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 3px solid #2563eb;">
-                    <h1 style="color: #2563eb; margin: 0;">Коммерческое предложение</h1>
-                    <p style="color: #6b7280; margin-top: 0.5rem;">${new Date().toLocaleDateString('ru-RU')}</p>
-                </div>
+            <div style="max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif; font-size: 14px;">
+                <h1 style="text-align: center; color: #2563eb; font-size: 1.4rem; margin-bottom: 0.3rem;">Коммерческое предложение</h1>
+                <p style="text-align: center; color: #6b7280; font-size: 0.9rem; margin-bottom: 1.2rem;">${new Date().toLocaleDateString('ru-RU')}</p>
 
-                <div style="margin-bottom: 2rem;">
-                    <h2 style="color: #111827; font-size: 1.3rem;">Клиент: ${clientName}</h2>
-                    <h3 style="color: #6b7280; font-size: 1.1rem; font-weight: normal;">Проект: ${projectName}</h3>
-                </div>
+                <p style="margin: 0.2rem 0;"><strong>Клиент:</strong> ${clientName}</p>
+                <p style="margin: 0.2rem 0 1.2rem 0;"><strong>Проект:</strong> ${projectName}</p>
 
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.2rem; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #f3f4f6;">
-                            <th style="padding: 12px; text-align: left; border: 1px solid #e5e7eb;">Услуга</th>
-                            <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;">Кол-во</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;">Цена</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;">Сумма</th>
+                        <tr style="background: #f9fafb;">
+                            <th style="padding: 8px; text-align: left; border: 1px solid #e5e7eb;">Услуга</th>
+                            <th style="padding: 8px; text-align: center; border: 1px solid #e5e7eb; width: 60px;">Кол-во</th>
+                            <th style="padding: 8px; text-align: right; border: 1px solid #e5e7eb; width: 100px;">Цена</th>
+                            <th style="padding: 8px; text-align: right; border: 1px solid #e5e7eb; width: 100px;">Сумма</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -757,13 +757,13 @@ class ShootingCalculatorV2 {
 
             html += `
                 <tr>
-                    <td style="padding: 12px; border: 1px solid #e5e7eb;">
+                    <td style="padding: 8px; border: 1px solid #e5e7eb;">
                         ${item.name}
-                        ${item.includesRetouch ? '<span style="color: #2563eb; font-size: 0.8rem;"> (с ретушью)</span>' : ''}
+                        ${item.includesRetouch ? '<span style="color: #2563eb; font-size: 0.75rem;"> (с ретушью)</span>' : ''}
                     </td>
-                    <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;">${item.quantity}</td>
-                    <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;">${this.formatPrice(item.price)}${unitText}</td>
-                    <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; font-weight: 600;">${this.formatPrice(total)}</td>
+                    <td style="padding: 8px; text-align: center; border: 1px solid #e5e7eb;">${item.quantity}</td>
+                    <td style="padding: 8px; text-align: right; border: 1px solid #e5e7eb;">${this.formatPrice(item.price)}${unitText}</td>
+                    <td style="padding: 8px; text-align: right; border: 1px solid #e5e7eb; font-weight: 600;">${this.formatPrice(total)}</td>
                 </tr>
             `;
         });
@@ -772,24 +772,24 @@ class ShootingCalculatorV2 {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3" style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;"><strong>Подытог:</strong></td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; font-weight: 600;">${this.formatPrice(totals.subtotal)}</td>
+                            <td colspan="3" style="padding: 8px; text-align: right; border: 1px solid #e5e7eb;"><strong>Подытог:</strong></td>
+                            <td style="padding: 8px; text-align: right; border: 1px solid #e5e7eb; font-weight: 600;">${this.formatPrice(totals.subtotal)}</td>
                         </tr>
         `;
 
         if (totals.discount > 0) {
             html += `
-                        <tr style="background: #fef3c7;">
-                            <td colspan="3" style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;"><strong>Скидка:</strong></td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; color: #f59e0b; font-weight: 600;">-${this.formatPrice(totals.discount)}</td>
+                        <tr>
+                            <td colspan="3" style="padding: 8px; text-align: right; border: 1px solid #e5e7eb;"><strong>Скидка:</strong></td>
+                            <td style="padding: 8px; text-align: right; border: 1px solid #e5e7eb; color: #f59e0b; font-weight: 600;">-${this.formatPrice(totals.discount)}</td>
                         </tr>
             `;
         }
 
         html += `
-                        <tr style="background: #dbeafe;">
-                            <td colspan="3" style="padding: 16px; text-align: right; border: 1px solid #e5e7eb; font-size: 1.2rem;"><strong>ИТОГО:</strong></td>
-                            <td style="padding: 16px; text-align: right; border: 1px solid #e5e7eb; color: #2563eb; font-size: 1.3rem; font-weight: 700;">${this.formatPrice(totals.total)}</td>
+                        <tr style="background: #f9fafb;">
+                            <td colspan="3" style="padding: 10px; text-align: right; border: 1px solid #e5e7eb; font-size: 1rem;"><strong>ИТОГО:</strong></td>
+                            <td style="padding: 10px; text-align: right; border: 1px solid #e5e7eb; color: #2563eb; font-size: 1.1rem; font-weight: 700;">${this.formatPrice(totals.total)}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -798,9 +798,9 @@ class ShootingCalculatorV2 {
         const notes = document.getElementById('notes').value;
         if (notes) {
             html += `
-                <div style="background: #f9fafb; padding: 1rem; border-left: 4px solid #2563eb; margin-bottom: 2rem;">
-                    <h4 style="margin: 0 0 0.5rem 0; color: #111827;">Примечания:</h4>
-                    <p style="margin: 0; color: #6b7280; white-space: pre-wrap;">${notes}</p>
+                <div style="background: #f9fafb; padding: 0.75rem; border-left: 3px solid #2563eb; margin-bottom: 1rem;">
+                    <strong style="color: #111827; font-size: 0.9rem;">Примечания:</strong>
+                    <p style="margin: 0.4rem 0 0 0; color: #6b7280; font-size: 0.85rem; white-space: pre-wrap;">${notes}</p>
                 </div>
             `;
         }
