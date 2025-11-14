@@ -28,6 +28,7 @@
     padding: 24px;
     margin-bottom: 24px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0; /* Prevent collapsing */
 }
 
 .margin-dashboard-card h3 {
@@ -564,6 +565,25 @@
 .cost-breakdown[data-margin="zero"] {
     border-left-color: #ef4444;
     background: #fef2f2;
+}
+
+/* ============================================
+   FIX: RIGHT PANEL OVERFLOW
+   ============================================ */
+
+/* Ensure cart is always visible with margin dashboard */
+.right-panel {
+    overflow-y: auto; /* Allow scrolling if needed */
+}
+
+.cart-card {
+    flex-shrink: 0; /* Prevent cart from collapsing */
+    min-height: 300px; /* Ensure minimum height */
+}
+
+.cart-items {
+    /* Remove max-height if it causes issues */
+    min-height: 100px;
 }
 
 /* ============================================

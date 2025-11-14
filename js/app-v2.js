@@ -189,6 +189,19 @@ class ShootingCalculatorV2 {
             });
         }
 
+        // Textile packages (Шторы, Постельное белье)
+        if (category.packages) {
+            category.packages.forEach(pkg => {
+                html += `<h3 style="margin: 1.5rem 0 1rem; font-size: 1.1rem; color: var(--primary-color);">${pkg.category}</h3>`;
+                pkg.tariffs.forEach(tariff => {
+                    html += this.createServiceItemV2({
+                        ...tariff,
+                        id: `${category.id}_${pkg.category}_${tariff.name}`.replace(/\s/g, '_')
+                    }, category.id);
+                });
+            });
+        }
+
         return html;
     }
 
