@@ -203,6 +203,92 @@
     background: #ef4444;
 }
 
+/* Список услуг в панели маржинальности */
+.margin-services-list {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.margin-services-header {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.margin-services-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.margin-service-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f9fafb;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.margin-service-name {
+    flex: 1;
+    font-size: 0.85rem;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.margin-service-qty {
+    color: #6b7280;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.margin-service-values {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.margin-service-price {
+    font-weight: 600;
+    color: #111827;
+    font-size: 0.9rem;
+}
+
+.margin-service-margin {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 45px;
+    text-align: center;
+}
+
+.margin-service-margin.margin-high {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.margin-service-margin.margin-medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.margin-service-margin.margin-low {
+    background: #fed7aa;
+    color: #9a3412;
+}
+
+.margin-service-margin.margin-zero {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
 /* ============================================
    БЕЙДЖИ УСЛУГ
    ============================================ */

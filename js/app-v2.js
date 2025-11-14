@@ -461,6 +461,49 @@ class ShootingCalculatorV2 {
         // Показываем/скрываем предупреждение
         const alert = document.getElementById('zeroMarginAlert');
         alert.style.display = hasZeroMargin ? 'flex' : 'none';
+
+        // Добавляем список услуг в панель маржинальности
+        this.updateMarginServicesList();
+    }
+
+    updateMarginServicesList() {
+        // Проверяем есть ли контейнер, если нет - создаем
+        let servicesListContainer = document.getElementById('marginServicesList');
+
+        if (!servicesListContainer) {
+            // Создаем контейнер после легенды
+            const legend = document.querySelector('.margin-legend');
+            servicesListContainer = document.createElement('div');
+            servicesListContainer.id = 'marginServicesList';
+            servicesListContainer.className = 'margin-services-list';
+            legend.parentNode.insertBefore(servicesListContainer, legend.nextSibling);
+        }
+
+        // Генерируем список услуг
+        let html = '<div class="margin-services-header">📋 Услуги в проекте:</div>';
+        html += '<div class="margin-services-items">';
+
+        this.cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            const itemMargin = ((item.marginPercent || 0)).toFixed(0);
+            const marginClass = this.getMarginLevel(item.marginPercent || 0);
+
+            html += `
+                <div class="margin-service-row">
+                    <div class="margin-service-name">
+                        ${item.name}
+                        <span class="margin-service-qty">× ${item.quantity}</span>
+                    </div>
+                    <div class="margin-service-values">
+                        <span class="margin-service-price">${this.formatPrice(itemTotal)}</span>
+                        <span class="margin-service-margin margin-${marginClass}">${itemMargin}%</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += '</div>';
+        servicesListContainer.innerHTML = html;
     }
 
     updateDiscount(type, value) {
