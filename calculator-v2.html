@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктор Съемки 2.0 - С учетом маржинальности</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-v2.css">
+    <script>
+    // Встроенные данные прайс-листа V2.0 с маржинальностью
+    window.PRICES_DATA_V2 = {
+  "version": "2.0",
+  "lastUpdated": "2025-01-14",
+  "categories": [
+    {
+      "id": "sprints",
+      "name": "Фото-Спринты",
+      "icon": "⚡",
+      "description": "Готовые пакеты для быстрой съемки",
+      "subcategories": [
+        {
+          "id": "predmetniy",
+          "name": "Фото-Спринт Предметный",
+          "packages": [
+            {
+              "id": "sprint_s",
+              "name": "Спринт S (2 часа) \"Тест-Драйв\"",
+              "price": 14000,
+              "cost": 2800,
+              "margin": 11200,
+              "marginPercent": 80,
+              "includesRetouch": false,
+              "zeroMargin": false,
+              "description": "2 часа работы фотографа, базовый свет и фоны, ~15-25 исходников",
+              "suitable": "До 10 простых товаров в нескольких ракурсах",
+              "costBreakdown": "Фотограф: 2,800 ₽",
+              "notes": "Ретушь продается отдельными модулями"
+            },
+            {
+              "id": "sprint_m",
+              "name": "Спринт M (4 часа) \"Рабочая Лошадка\"",
+              "price": 29000,
+              "cost": 6200,
+              "margin": 22800,
+              "marginPercent": 79,
+              "includesRetouch": false,
+              "zeroMargin": false,
+              "description": "4 часа работы фотографа, помощь ассистента (2ч), ~30-60 исходников",
+              "suitable": "Небольшая партия до 20 арт.",
+              "costBreakdown": "Фотограф: 5,600 ₽ + Ассистент: 600 ₽",
+              "notes": "Ретушь продается отдельными модулями"
+            },
+            {
+              "id": "sprint_l",
+              "name": "Спринт L (8 часов) \"Контент-Фабрика\"",
+              "price": 55000,
+              "cost": 15400,
+              "margin": 39600,
+              "marginPercent": 72,
+              "includesRetouch": false,
+              "zeroMargin": false,
+              "description": "8 часов работы фотографа, ассистент (4ч), продюсер (2ч), ~70-120 исходников",
+              "suitable": "Большая партия до 40 арт.",
+              "costBreakdown": "Фотограф: 11,200 ₽ + Ассистент: 1,200 ₽ + Продюсер: 3,000 ₽",
+              "notes": "Ретушь продается отдельными модулями"
+            }
+          ]
+        },
+        {
+          "id": "lifestyle",
+          "name": "Фото-Спринт Лайфстайл",
+          "packages": [
+            {
+              "id": "lifestyle_s",
+              "name": "Спринт Лайфстайл S (2 часа)",
+              "price": 18000,
+              "cost": 3600,
+              "margin": 14400,
+              "marginPercent": 80,
+              "includesRetouch": false,
+              "zeroMargin": false,
+              "description": "2 часа работы фотографа-режиссера, 1-2 законченные сцены/образа",
+              "suitable": "1-2 ярких имиджевых кадра",
+              "costBreakdown": "Фотограф-видеограф: 3,600 ₽"
+            },
+            {
+              "id": "lifestyle_m",
+              "name": "Спринт Лайфстайл M (4 часа)",
+              "price": 35000,
+              "cost": 9900,
+              "margin": 25100,
+              "marginPercent": 72,
+              "includesRetouch": false,
+              "zeroMargin": false,
+              "description": "4 часа работы фотографа-режиссера, ассистент (2ч), 3-4 сцены/образа",
+              "suitable": "Контент на неделю для соцсетей",
+              "costBreakdown": "Фотограф-видеограф: 7,200 ₽ + Ассистент: 1,200 ₽ + Монтаж: 1,500 ₽"
+            },
+            {
+              "id": "lifestyle_l",
+              "name": "Спринт Лайфстайл L (8 часов)",
+              "price": 65000,
+              "cost": 22400,
+              "margin": 42600,
+              "marginPercent": 66,
+              "includesRetouch": false,
+              "zeroMargin": false,
+              "description": "8 часов работы фотографа-режиссера, продюсер (4ч), 5-8 сцен/образов",
+              "suitable": "Полноценная имиджевая съемка для лукбука",
+              "costBreakdown": "Фотограф-видеограф: 14,400 ₽ + Монтаж: 3,000 ₽ + Продюсер: 5,000 ₽"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hourly",
+      "name": "Почасовая Съемка",
+      "icon": "⏱️",
+      "description": "Гибкая оплата по часам. ВАЖНО: Только от полного часа!",
+      "services": [
+        {
+          "id": "photo_hourly",
+          "name": "Фотосъемка почасовая",
+          "price": 7000,
+          "cost": 1400,
+          "margin": 5600,
+          "marginPercent": 80,
+          "unit": "час",
+          "includesRetouch": false,
+          "zeroMargin": false,
+          "description": "Предметная съемка на белом фоне, 5-10 арт/час",
+          "costBreakdown": "Фотограф: 1,400 ₽/час"
+        },
+        {
+          "id": "photo_field",
+          "name": "Выездная фотосъемка",
+          "price": 8000,
+          "cost": 1600,
+          "margin": 6400,
+          "marginPercent": 80,
+          "unit": "час",
+          "includesRetouch": false,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф: 1,600 ₽/час"
+        },
+        {
+          "id": "photo_premium",
+          "name": "Фотосъемка (Мария Корхова)",
+          "price": 9000,
+          "cost": 2100,
+          "margin": 6900,
+          "marginPercent": 77,
+          "unit": "час",
+          "includesRetouch": false,
+          "zeroMargin": false,
+          "description": "Премиум фотограф",
+          "costBreakdown": "Мария Корхова: 2,100 ₽/час"
+        },
+        {
+          "id": "video_hourly",
+          "name": "Видеосъемка (Антон Удовиченко)",
+          "price": 17000,
+          "cost": 5000,
+          "margin": 12000,
+          "marginPercent": 71,
+          "unit": "час",
+          "includesRetouch": false,
+          "zeroMargin": false,
+          "description": "Премиум видеосъемка",
+          "costBreakdown": "Антон Удовиченко: 5,000 ₽/час"
+        }
+      ]
+    },
+    {
+      "id": "subject_photo",
+      "name": "Предметная Съемка",
+      "icon": "📦",
+      "description": "Съемка товаров. ЦЕНЫ ЗА КАДР С РЕТУШЬЮ!",
+      "items": [
+        {
+          "category": "Простые предметы",
+          "price": 350,
+          "cost": 70,
+          "margin": 280,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Устойчивые без отражений (бады, коробки и т.д.)",
+          "costBreakdown": "Фотограф: 70 ₽ (20%)"
+        },
+        {
+          "category": "Мягкие/гибкие предметы",
+          "price": 400,
+          "cost": 80,
+          "margin": 320,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Пачки, ремни, провода",
+          "costBreakdown": "Фотограф: 80 ₽ (20%)"
+        },
+        {
+          "category": "Комбинированные предметы",
+          "price": 450,
+          "cost": 90,
+          "margin": 360,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Бритвы, массажеры, блендеры",
+          "costBreakdown": "Фотограф: 90 ₽ (20%)"
+        },
+        {
+          "category": "Средний габарит",
+          "price": 500,
+          "cost": 100,
+          "margin": 400,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Коляски детские",
+          "costBreakdown": "Фотограф: 100 ₽ (20%)"
+        },
+        {
+          "category": "Стеклянные предметы",
+          "price": 500,
+          "cost": 100,
+          "margin": 400,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Вазы, люстры, посуда, бутылки, очки",
+          "costBreakdown": "Фотограф: 100 ₽ (20%)"
+        },
+        {
+          "category": "Металл/хром",
+          "price": 700,
+          "cost": 140,
+          "margin": 560,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Кран, кастрюля, столовые приборы",
+          "costBreakdown": "Фотограф: 140 ₽ (20%)"
+        },
+        {
+          "category": "Ювелирные украшения без камней",
+          "price": 1500,
+          "cost": 300,
+          "margin": 1200,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф: 300 ₽ (20%)"
+        },
+        {
+          "category": "Ювелирные украшения с камнями",
+          "price": 2000,
+          "cost": 400,
+          "margin": 1600,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф: 400 ₽ (20%)"
+        },
+        {
+          "category": "Косметика",
+          "price": 400,
+          "cost": 80,
+          "margin": 320,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Если фотограф Мария Корхова - продажа на 15% дороже",
+          "costBreakdown": "Фотограф: 80 ₽ (20%)"
+        },
+        {
+          "category": "Свотчи (косметика)",
+          "price": 800,
+          "cost": 160,
+          "margin": 640,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф: 160 ₽ (20%)"
+        }
+      ]
+    },
+    {
+      "id": "mannequin",
+      "name": "Манекен / Раскладка",
+      "icon": "👔",
+      "description": "Съемка одежды. ЦЕНЫ ЗА ФОТО С РЕТУШЬЮ!",
+      "services": [
+        {
+          "type": "Простые единичные изделия - Манекен",
+          "price": 450,
+          "cost": 90,
+          "margin": 360,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Спортивная одежда, брюки, футболки",
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Простые единичные изделия - Раскладка",
+          "price": 450,
+          "cost": 90,
+          "margin": 360,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Простые единичные изделия - Вешалка",
+          "price": 550,
+          "cost": 110,
+          "margin": 440,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Сложные изделия - Манекен",
+          "price": 600,
+          "cost": 120,
+          "margin": 480,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "Платья сложного кроя, комбинезоны, верхняя одежда",
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Сложные изделия - Раскладка",
+          "price": 600,
+          "cost": 120,
+          "margin": 480,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Сложные изделия - Вешалка",
+          "price": 650,
+          "cost": 130,
+          "margin": 520,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Костюмы (комплекты) - Манекен",
+          "price": 900,
+          "cost": 180,
+          "margin": 720,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Костюмы (комплекты) - Раскладка",
+          "price": 900,
+          "cost": 180,
+          "margin": 720,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Белье единичное - Манекен",
+          "price": 850,
+          "cost": 170,
+          "margin": 680,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Белье единичное - Раскладка",
+          "price": 850,
+          "cost": 170,
+          "margin": 680,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Белье комплект - Манекен",
+          "price": 1800,
+          "cost": 360,
+          "margin": 1440,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        },
+        {
+          "type": "Белье комплект - Раскладка",
+          "price": 1800,
+          "cost": 360,
+          "margin": 1440,
+          "marginPercent": 80,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + ретушь"
+        }
+      ]
+    },
+    {
+      "id": "shoes_bags",
+      "name": "Обувь и Сумки",
+      "icon": "👟",
+      "description": "ЦЕНЫ С РЕТУШЬЮ!",
+      "portfolio": [
+        {
+          "type": "yandex_disk",
+          "url": "https://disk.yandex.ru/d/dvWbo77Vnw7t3A",
+          "title": "Предметные фото - готовые карточки"
+        },
+        {
+          "type": "yandex_disk",
+          "url": "https://disk.yandex.ru/d/llG8fWtsO6vh3Q",
+          "title": "Детская обувь - примеры"
+        },
+        {
+          "type": "yandex_disk",
+          "url": "https://disk.yandex.ru/d/_3ai-VpKdSADZQ",
+          "title": "Salamander - обувь и сумки"
+        },
+        {
+          "type": "youtube",
+          "url": "https://youtube.com/shorts/KrUs-47nWsI",
+          "title": "Видеопроходка с моделью #1"
+        },
+        {
+          "type": "youtube",
+          "url": "https://youtube.com/shorts/iWj7t2uDTcM",
+          "title": "Видеопроходка с моделью #2"
+        }
+      ],
+      "items": [
+        {
+          "category": "Обувь низкая на белом",
+          "price": 400,
+          "cost": 260,
+          "margin": 140,
+          "marginPercent": 35,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф 15%: 60 ₽ + Ретушь: 200 ₽"
+        },
+        {
+          "category": "Обувь высокая на белом",
+          "price": 500,
+          "cost": 375,
+          "margin": 125,
+          "marginPercent": 25,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф 15%: 75 ₽ + Ретушь: 300 ₽"
+        },
+        {
+          "category": "Весна/лето сложная (с ремешками)",
+          "price": 500,
+          "cost": 375,
+          "margin": 125,
+          "marginPercent": 25,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф 15%: 75 ₽ + Ретушь: 300 ₽"
+        },
+        {
+          "category": "Простая сумка на белом",
+          "price": 450,
+          "cost": 268,
+          "margin": 182,
+          "marginPercent": 40,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф 15%: 68 ₽ + Ретушь: 200 ₽"
+        },
+        {
+          "category": "Сумка с подвесом",
+          "price": 500,
+          "cost": 375,
+          "margin": 125,
+          "marginPercent": 25,
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф 15%: 75 ₽ + Ретушь: 300 ₽"
+        }
+      ]
+    },
+    {
+      "id": "model_shoot",
+      "name": "Модельная Съемка",
+      "icon": "📸",
+      "description": "Сборные и индивидуальные съемки. Цены ВКЛЮЧАЮТ базовую ретушь!",
+      "services": [
+        {
+          "type": "Сборная взрослая Стандарт",
+          "price": 2500,
+          "cost": 500,
+          "margin": 2000,
+          "marginPercent": 80,
+          "unit": "артикул",
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "10 фото в базовой ретуши",
+          "costBreakdown": "Фотограф + базовая ретушь"
+        },
+        {
+          "type": "Сборная взрослая SPECIAL",
+          "price": 3000,
+          "cost": 600,
+          "margin": 2400,
+          "marginPercent": 80,
+          "unit": "артикул",
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "15 фото в базовой ретуши",
+          "costBreakdown": "Фотограф + базовая ретушь"
+        },
+        {
+          "type": "Сборная детская Стандарт",
+          "price": 3900,
+          "cost": 780,
+          "margin": 3120,
+          "marginPercent": 80,
+          "unit": "артикул",
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "10 фото в базовой ретуши",
+          "costBreakdown": "Фотограф + базовая ретушь"
+        },
+        {
+          "type": "Сборная детская SPECIAL",
+          "price": 4400,
+          "cost": 880,
+          "margin": 3520,
+          "marginPercent": 80,
+          "unit": "артикул",
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "description": "15 фото в базовой ретуши",
+          "costBreakdown": "Фотограф + базовая ретушь"
+        },
+        {
+          "type": "Сборная белье",
+          "price": 1500,
+          "cost": 300,
+          "margin": 1200,
+          "marginPercent": 80,
+          "unit": "артикул",
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + базовая ретушь"
+        },
+        {
+          "type": "Сборная эро-белье",
+          "price": 2000,
+          "cost": 400,
+          "margin": 1600,
+          "marginPercent": 80,
+          "unit": "артикул",
+          "includesRetouch": true,
+          "zeroMargin": false,
+          "costBreakdown": "Фотограф + базовая ретушь"
+        },
+        {
+          "type": "⚠️ Модель стандарт (БУКЕР)",
+          "price": 5000,
+          "cost": 5000,
+          "margin": 0,
+          "marginPercent": 0,
+          "unit": "час",
+          "includesRetouch": false,
+          "zeroMargin": true,
+          "description": "100% БУКЕРУ - НУЛЕВАЯ МАРЖА",
+          "costBreakdown": "Модель (букер): 5,000 ₽ (100%)",
+          "notes": "ВСЯ ОПЛАТА ИДЕТ БУКЕРУ!"
+        },
+        {
+          "type": "⚠️ Модель частичная руки/ноги (БУКЕР)",
+          "price": 5000,
+          "cost": 5000,
+          "margin": 0,
+          "marginPercent": 0,
+          "unit": "час",
+          "includesRetouch": false,
+          "zeroMargin": true,
+          "description": "100% БУКЕРУ - НУЛЕВАЯ МАРЖА",
+          "costBreakdown": "Модель (букер): 5,000 ₽ (100%)",
+          "notes": "ВСЯ ОПЛАТА ИДЕТ БУКЕРУ!"
+        },
+        {
+          "type": "⚠️ Модель дети (БУКЕР)",
+          "price": 15000,
+          "cost": 15000,
+          "margin": 0,
+          "marginPercent": 0,
+          "unit": "смена",
+          "includesRetouch": false,
+          "zeroMargin": true,
+          "description": "100% БУКЕРУ - НУЛЕВАЯ МАРЖА. Включает кастинг",
+          "costBreakdown": "Детская модель (букер): 15,000 ₽ (100%)",
+          "notes": "ВСЯ ОПЛАТА ИДЕТ БУКЕРУ!"
+        }
+      ]
+    }
+  ],
+  "postproduction": {
+    "name": "Постпродакшн",
+    "icon": "✨",
+    "description": "Отдельные услуги ретуши, инфографики и видео",
+    "portfolio": [
+      {
+        "type": "website",
+        "url": "https://fotofactor.ru/retush-predmetka",
+        "title": "Портфолио ретуши предметки"
+      }
+    ],
+    "services": [
+      {
+        "category": "Ретушь",
+        "items": [
+          {
+            "name": "Техническая ретушь (мелкая пыль)",
+            "price": 100,
+            "cost": 35,
+            "margin": 65,
+            "marginPercent": 65,
+            "includesRetouch": true,
+            "zeroMargin": false,
+            "description": "Чистка фона, удаление пыли",
+            "costBreakdown": "Ретушер: 35 ₽"
+          },
+          {
+            "name": "Техническая ретушь (заметная пыль)",
+            "price": 150,
+            "cost": 50,
+            "margin": 100,
+            "marginPercent": 67,
+            "includesRetouch": true,
+            "zeroMargin": false,
+            "costBreakdown": "Ретушер: 50 ₽"
+          },
+          {
+            "name": "Базовая ретушь (простой товар)",
+            "price": 200,
+            "cost": 60,
+            "margin": 140,
+            "marginPercent": 70,
+            "includesRetouch": true,
+            "zeroMargin": false,
+            "description": "Пыль, грязь, помятые уголки",
+            "costBreakdown": "Ретушер: 60 ₽"
+          },
+          {
+            "name": "Каталожная ретушь",
+            "price": 300,
+            "cost": 100,
+            "margin": 200,
+            "marginPercent": 67,
+            "includesRetouch": true,
+            "zeroMargin": false,
+            "description": "Включает техническую + коррекция формы, пластика",
+            "costBreakdown": "Ретушер: 100 ₽"
+          },
+          {
+            "name": "Журнальная/Hi-End ретушь",
+            "price": 5000,
+            "cost": 1500,
+            "margin": 3500,
+            "marginPercent": 70,
+            "includesRetouch": true,
+            "zeroMargin": false,
+            "description": "Детальная проработка, D&B",
+            "costBreakdown": "Ретушер: 1,500 ₽"
+          },
+          {
+            "name": "Обтравка/изоляция фона",
+            "price": 150,
+            "cost": 50,
+            "margin": 100,
+            "marginPercent": 67,
+            "includesRetouch": true,
+            "zeroMargin": false,
+            "description": "Идеально белый фон #FFFFFF",
+            "costBreakdown": "Ретушер: 50 ₽"
+          }
+        ]
+      },
+      {
+        "category": "Инфографика",
+        "items": [
+          {
+            "name": "Разработка 1 изображения",
+            "price": 1500,
+            "cost": 600,
+            "margin": 900,
+            "marginPercent": 60,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "costBreakdown": "Дизайнер: 600 ₽"
+          },
+          {
+            "name": "Инфографика на 1 арт (до 8 кадров)",
+            "price": 5000,
+            "cost": 2000,
+            "margin": 3000,
+            "marginPercent": 60,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "costBreakdown": "Дизайнер: 2,000 ₽"
+          },
+          {
+            "name": "Повторное наложение шаблона",
+            "price": 500,
+            "cost": 250,
+            "margin": 250,
+            "marginPercent": 50,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "costBreakdown": "Дизайнер: 250 ₽"
+          },
+          {
+            "name": "Видеообложка",
+            "price": 7000,
+            "cost": 2000,
+            "margin": 5000,
+            "marginPercent": 71,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "description": "Из готовых материалов",
+            "costBreakdown": "Дизайнер: 2,000 ₽"
+          },
+          {
+            "name": "Рич-контент (5 баннеров)",
+            "price": 15000,
+            "cost": 4000,
+            "margin": 11000,
+            "marginPercent": 73,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "description": "Для ПК и мобильных",
+            "costBreakdown": "Дизайнер: 4,000 ₽"
+          }
+        ]
+      },
+      {
+        "category": "Видео",
+        "items": [
+          {
+            "name": "Видеомонтаж Reels/Shorts",
+            "price": 8000,
+            "cost": 800,
+            "margin": 7200,
+            "marginPercent": 90,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "description": "Динамичный вертикальный ролик до 30 сек",
+            "costBreakdown": "Монтажер: 800 ₽"
+          },
+          {
+            "name": "Видео-инструкция (до 60 сек)",
+            "price": 8000,
+            "cost": 2400,
+            "margin": 5600,
+            "marginPercent": 70,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "description": "Обучающий ролик",
+            "costBreakdown": "Монтажер: 2,400 ₽"
+          },
+          {
+            "name": "Видео 360 небольшой товар",
+            "price": 3000,
+            "cost": 600,
+            "margin": 2400,
+            "marginPercent": 80,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "costBreakdown": "Фотограф: 600 ₽ (20%)"
+          },
+          {
+            "name": "Видео 360 средний товар",
+            "price": 5000,
+            "cost": 1000,
+            "margin": 4000,
+            "marginPercent": 80,
+            "includesRetouch": false,
+            "zeroMargin": false,
+            "costBreakdown": "Фотограф: 1,000 ₽ (20%)"
+          }
+        ]
+      }
+    ]
+  },
+  "additional_services": {
+    "name": "Дополнительные услуги",
+    "icon": "⭐",
+    "services": [
+      {
+        "name": "Ассистент",
+        "price": 5000,
+        "cost": 2500,
+        "margin": 2500,
+        "marginPercent": 50,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "costBreakdown": "Ассистент: 2,500 ₽/смена"
+      },
+      {
+        "name": "Продюсер",
+        "price": 10000,
+        "cost": 5000,
+        "margin": 5000,
+        "marginPercent": 50,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "costBreakdown": "Продюсер: ~5,000 ₽/смена"
+      },
+      {
+        "name": "⚠️ Гафер (Николай Галкин)",
+        "price": 30000,
+        "cost": 25000,
+        "margin": 5000,
+        "marginPercent": 17,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Переработка: 7,000 ₽/час",
+        "costBreakdown": "Гафер: 25,000 ₽/смена (переработка 7k/ч)",
+        "notes": "Дорогой специалист! Учитывать переработки"
+      },
+      {
+        "name": "Сет-дизайнер",
+        "price": 3000,
+        "cost": 1750,
+        "margin": 1250,
+        "marginPercent": 42,
+        "unit": "час",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "costBreakdown": "Сет-дизайнер: 1,500-2,000 ₽/час"
+      },
+      {
+        "name": "Отпаривание",
+        "price": 80,
+        "cost": 20,
+        "margin": 60,
+        "marginPercent": 75,
+        "unit": "товар",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "costBreakdown": "Исполнитель"
+      },
+      {
+        "name": "Отпариватель аренда",
+        "price": 400,
+        "cost": 0,
+        "margin": 400,
+        "marginPercent": 100,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Свое оборудование",
+        "costBreakdown": "Без себестоимости (свое оборудование)"
+      },
+      {
+        "name": "Импульсный свет аренда",
+        "price": 1000,
+        "cost": 0,
+        "margin": 1000,
+        "marginPercent": 100,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Свое оборудование",
+        "costBreakdown": "Без себестоимости (свое оборудование)"
+      },
+      {
+        "name": "Видеосвет аренда",
+        "price": 2000,
+        "cost": 0,
+        "margin": 2000,
+        "marginPercent": 100,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Свое оборудование",
+        "costBreakdown": "Без себестоимости (свое оборудование)"
+      }
+    ]
+  },
+  "studio_rent": {
+    "name": "Аренда Студии",
+    "icon": "🏢",
+    "description": "Доп. оборудование оплачивается ОТДЕЛЬНО!",
+    "portfolio": [
+      {
+        "type": "yandex_disk",
+        "url": "https://disk.yandex.ru/d/0BL00lx31IlizQ",
+        "title": "Фото залов студии"
+      },
+      {
+        "type": "yandex_disk",
+        "url": "https://disk.yandex.ru/d/_4KBnS4TuGYjtQ",
+        "title": "Оборудование студии"
+      }
+    ],
+    "studios": [
+      {
+        "name": "Малая циклорама 507 (будни - час)",
+        "price": 1500,
+        "cost": 500,
+        "margin": 1000,
+        "marginPercent": 67,
+        "unit": "час",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "В стоимость включено: свет, кабинка, кубы, флаги, рейлы, фильтры, реквизит, 4 прибора godox QT600",
+        "costBreakdown": "Аренда помещения ~500 ₽/час"
+      },
+      {
+        "name": "Малая циклорама 507 (будни - смена 6ч)",
+        "price": 7500,
+        "cost": 3000,
+        "margin": 4500,
+        "marginPercent": 60,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Смена 6 часов",
+        "costBreakdown": "Аренда помещения"
+      },
+      {
+        "name": "Малая циклорама 507 (выходные - час)",
+        "price": 1700,
+        "cost": 500,
+        "margin": 1200,
+        "marginPercent": 71,
+        "unit": "час",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "costBreakdown": "Аренда помещения ~500 ₽/час"
+      },
+      {
+        "name": "Малая циклорама 507 (выходные - смена 6ч)",
+        "price": 8500,
+        "cost": 3000,
+        "margin": 5500,
+        "marginPercent": 65,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Смена 6 часов",
+        "costBreakdown": "Аренда помещения"
+      },
+      {
+        "name": "Большая циклорама 4400 (будни - час)",
+        "price": 1700,
+        "cost": 600,
+        "margin": 1100,
+        "marginPercent": 65,
+        "unit": "час",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Больше пространства + всё из малой циклорамы",
+        "costBreakdown": "Аренда помещения ~600 ₽/час"
+      },
+      {
+        "name": "Большая циклорама 4400 (будни - смена 6ч)",
+        "price": 8500,
+        "cost": 3600,
+        "margin": 4900,
+        "marginPercent": 58,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Смена 6 часов",
+        "costBreakdown": "Аренда помещения"
+      },
+      {
+        "name": "Большая циклорама 4400 (выходные - час)",
+        "price": 1900,
+        "cost": 600,
+        "margin": 1300,
+        "marginPercent": 68,
+        "unit": "час",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "costBreakdown": "Аренда помещения ~600 ₽/час"
+      },
+      {
+        "name": "Большая циклорама 4400 (выходные - смена 6ч)",
+        "price": 9500,
+        "cost": 3600,
+        "margin": 5900,
+        "marginPercent": 62,
+        "unit": "смена",
+        "includesRetouch": false,
+        "zeroMargin": false,
+        "description": "Смена 6 часов",
+        "costBreakdown": "Аренда помещения"
+      }
+    ]
+  }
+};
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">Конструктор Съемки 2.0 <span class="version-badge">PRO</span></h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="clearBtn">Очистить</button>
+                    <button class="btn btn-secondary" id="historyBtn">История</button>
+                    <button class="btn btn-primary" id="printBtn">Печать/PDF</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Panel - Categories & Services -->
+            <div class="left-panel">
+                <div class="client-info-card">
+                    <h3>Информация о клиенте</h3>
+                    <div class="form-group">
+                        <input type="text" id="clientName" placeholder="Имя клиента" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="clientPhone" placeholder="Телефон" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="projectName" placeholder="Название проекта" class="input-field">
+                    </div>
+                </div>
+
+                <div class="categories-section">
+                    <h2>Выберите категорию</h2>
+                    <div class="categories-grid" id="categoriesGrid">
+                        <!-- Categories будут загружены из JSON -->
+                    </div>
+                </div>
+
+                <div class="services-section" id="servicesSection" style="display: none;">
+                    <div class="services-header">
+                        <button class="btn-back" id="backBtn">← Назад к категориям</button>
+                        <h2 id="serviceSectionTitle"></h2>
+                    </div>
+                    <div id="servicesContent">
+                        <!-- Services content будет загружен динамически -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Selected Items, Margin & Total -->
+            <div class="right-panel">
+                <!-- НОВЫЙ БЛОК: Панель маржинальности -->
+                <div class="margin-dashboard-card" id="marginDashboard" style="display: none;">
+                    <h3>📊 МАРЖИНАЛЬНОСТЬ ПРОЕКТА</h3>
+
+                    <div class="margin-stats">
+                        <div class="margin-row">
+                            <span class="margin-label">Стоимость для клиента:</span>
+                            <span class="margin-value" id="totalClientPrice">0 ₽</span>
+                        </div>
+                        <div class="margin-row">
+                            <span class="margin-label">Себестоимость:</span>
+                            <span class="margin-value" id="totalCost">0 ₽</span>
+                        </div>
+                        <div class="margin-row margin-total-row">
+                            <span class="margin-label">Маржа:</span>
+                            <span class="margin-value margin-highlight" id="totalMargin">0 ₽ (0%)</span>
+                        </div>
+                    </div>
+
+                    <div class="margin-progress-bar">
+                        <div class="margin-progress-fill" id="marginProgressFill" style="width: 0%"></div>
+                        <span class="margin-progress-label" id="marginProgressLabel">0%</span>
+                    </div>
+
+                    <div class="margin-alert" id="zeroMarginAlert" style="display: none;">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-content">
+                            <strong>Внимание!</strong>
+                            <p>В проекте есть услуги с нулевой маржой (100% букеру/партнеру)</p>
+                        </div>
+                    </div>
+
+                    <div class="margin-legend">
+                        <div class="legend-item">
+                            <span class="legend-color legend-high"></span>
+                            <span>Высокая (70%+)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color legend-medium"></span>
+                            <span>Средняя (40-70%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color legend-low"></span>
+                            <span>Низкая (20-40%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color legend-zero"></span>
+                            <span>Нулевая (0-20%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-card">
+                    <h2>Выбранные услуги</h2>
+                    <div class="cart-items" id="cartItems">
+                        <div class="empty-cart">
+                            <div class="empty-icon">🛒</div>
+                            <p>Выберите услуги из категорий</p>
+                        </div>
+                    </div>
+
+                    <div class="cart-footer" id="cartFooter" style="display: none;">
+                        <div class="subtotal-row">
+                            <span>Подытог:</span>
+                            <span id="subtotal">0 ₽</span>
+                        </div>
+                        <div class="discount-section">
+                            <label>Скидка:</label>
+                            <div class="discount-inputs">
+                                <input type="number" id="discountPercent" placeholder="%" min="0" max="100" value="0">
+                                <span>или</span>
+                                <input type="number" id="discountAmount" placeholder="₽" min="0" value="0">
+                            </div>
+                            <div class="discount-value" id="discountValue">-0 ₽</div>
+                        </div>
+                        <div class="total-row">
+                            <span>Итого:</span>
+                            <span class="total-amount" id="totalAmount">0 ₽</span>
+                        </div>
+                        <div class="cart-actions">
+                            <button class="btn btn-secondary btn-block" id="saveCalculationBtn">
+                                💾 Сохранить расчет
+                            </button>
+                            <button class="btn btn-primary btn-block" id="generateProposalBtn">
+                                📄 Создать КП
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notes-card">
+                    <h3>Заметки</h3>
+                    <textarea id="notes" class="notes-textarea" placeholder="Дополнительные комментарии к расчету..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal для истории -->
+    <div class="modal" id="historyModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>История расчетов</h2>
+                <button class="close-btn" id="closeHistoryModal">×</button>
+            </div>
+            <div class="modal-body" id="historyContent">
+                <!-- History items будут загружены из localStorage -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal для печати/экспорта -->
+    <div class="modal" id="proposalModal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Коммерческое предложение</h2>
+                <button class="close-btn" id="closeProposalModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="proposalContent" class="proposal-content">
+                    <!-- Generated proposal будет здесь -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="copyToClipboardBtn">📋 Копировать</button>
+                    <button class="btn btn-primary" id="printProposalBtn">🖨️ Печать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- НОВОЕ: Modal для портфолио -->
+    <div class="modal" id="portfolioModal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="portfolioModalTitle">Портфолио</h2>
+                <button class="close-btn" id="closePortfolioModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="portfolioContent" class="portfolio-gallery">
+                    <!-- Portfolio links будут загружены динамически -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app-v2.js"></script>
+</body>
+</html>

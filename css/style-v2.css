@@ -1,0 +1,531 @@
+/* ============================================
+   КАЛЬКУЛЯТОР 2.0 - ДОПОЛНИТЕЛЬНЫЕ СТИЛИ
+   Маржинальность, бейджи, портфолио
+   ============================================ */
+
+/* Header Version Badge */
+.version-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-left: 10px;
+    vertical-align: middle;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+/* ============================================
+   ПАНЕЛЬ МАРЖИНАЛЬНОСТИ
+   ============================================ */
+
+.margin-dashboard-card {
+    background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.margin-dashboard-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 20px 0;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* Статистика маржи */
+.margin-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.margin-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.margin-row.margin-total-row {
+    border-bottom: none;
+    padding-top: 12px;
+    margin-top: 8px;
+    border-top: 2px solid #2563eb;
+}
+
+.margin-label {
+    font-size: 0.95rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.margin-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.margin-value.margin-highlight {
+    color: #2563eb;
+    font-size: 1.3rem;
+}
+
+/* Прогресс-бар маржинальности */
+.margin-progress-bar {
+    position: relative;
+    width: 100%;
+    height: 32px;
+    background: #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.margin-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+    border-radius: 16px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+    position: relative;
+}
+
+/* Цвета прогресс-бара в зависимости от маржи */
+.margin-progress-fill[data-margin="high"] {
+    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+}
+
+.margin-progress-fill[data-margin="medium"] {
+    background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+}
+
+.margin-progress-fill[data-margin="low"] {
+    background: linear-gradient(90deg, #f97316 0%, #fb923c 100%);
+}
+
+.margin-progress-fill[data-margin="zero"] {
+    background: linear-gradient(90deg, #ef4444 0%, #f87171 100%);
+}
+
+.margin-progress-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #111827;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Предупреждение о нулевой марже */
+.margin-alert {
+    background: #fef2f2;
+    border: 2px solid #fca5a5;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.margin-alert .alert-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.margin-alert .alert-content {
+    flex: 1;
+}
+
+.margin-alert strong {
+    display: block;
+    color: #dc2626;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.margin-alert p {
+    margin: 0;
+    color: #991b1b;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* Легенда цветов маржинальности */
+.margin-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.legend-color.legend-high {
+    background: #10b981;
+}
+
+.legend-color.legend-medium {
+    background: #f59e0b;
+}
+
+.legend-color.legend-low {
+    background: #f97316;
+}
+
+.legend-color.legend-zero {
+    background: #ef4444;
+}
+
+/* ============================================
+   БЕЙДЖИ УСЛУГ
+   ============================================ */
+
+.service-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badge-retouch {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+.badge-no-retouch {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+
+.badge-zero-margin {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+    animation: pulse-warning 2s ease-in-out infinite;
+}
+
+@keyframes pulse-warning {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 4px rgba(239, 68, 68, 0);
+    }
+}
+
+.badge-margin {
+    font-weight: 700;
+}
+
+.badge-margin.margin-high {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}
+
+.badge-margin.margin-medium {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+
+.badge-margin.margin-low {
+    background: #fed7aa;
+    color: #9a3412;
+    border: 1px solid #fdba74;
+}
+
+.badge-margin.margin-zero {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+/* ============================================
+   КНОПКА ПОРТФОЛИО
+   ============================================ */
+
+.portfolio-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+    box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
+}
+
+.portfolio-button:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
+    transform: translateY(-1px);
+}
+
+.portfolio-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
+}
+
+/* ============================================
+   МОДАЛЬНОЕ ОКНО ПОРТФОЛИО
+   ============================================ */
+
+.portfolio-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.portfolio-item {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.portfolio-item:hover {
+    border-color: #8b5cf6;
+    box-shadow: 0 8px 16px rgba(139, 92, 246, 0.15);
+    transform: translateY(-2px);
+}
+
+.portfolio-icon {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.portfolio-title {
+    font-weight: 600;
+    color: #111827;
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
+}
+
+.portfolio-type {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.portfolio-link-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    width: 100%;
+}
+
+.portfolio-link-btn:hover {
+    background: #7c3aed;
+    box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
+}
+
+/* ============================================
+   ИНФОРМАЦИЯ О СЕБЕСТОИМОСТИ В КАРТОЧКАХ
+   ============================================ */
+
+.cost-breakdown {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f9fafb;
+    border-left: 4px solid #e5e7eb;
+    border-radius: 4px;
+}
+
+.cost-breakdown-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.cost-breakdown-value {
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.5;
+}
+
+/* Цветовая индикация себестоимости */
+.cost-breakdown[data-margin="high"] {
+    border-left-color: #10b981;
+    background: #ecfdf5;
+}
+
+.cost-breakdown[data-margin="medium"] {
+    border-left-color: #f59e0b;
+    background: #fffbeb;
+}
+
+.cost-breakdown[data-margin="low"] {
+    border-left-color: #f97316;
+    background: #fff7ed;
+}
+
+.cost-breakdown[data-margin="zero"] {
+    border-left-color: #ef4444;
+    background: #fef2f2;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 768px) {
+    .margin-legend {
+        grid-template-columns: 1fr;
+    }
+
+    .margin-dashboard-card {
+        padding: 16px;
+    }
+
+    .margin-progress-bar {
+        height: 28px;
+    }
+
+    .portfolio-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .service-badges {
+        font-size: 0.7rem;
+    }
+
+    .version-badge {
+        display: block;
+        margin: 8px 0 0 0;
+        width: fit-content;
+    }
+}
+
+@media (max-width: 480px) {
+    .margin-value.margin-highlight {
+        font-size: 1.1rem;
+    }
+
+    .margin-progress-label {
+        font-size: 0.8rem;
+    }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+}
+
+/* ============================================
+   АНИМАЦИИ
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.margin-dashboard-card {
+    animation: fadeIn 0.4s ease-out;
+}
+
+.badge {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* ============================================
+   ПЕЧАТНАЯ ВЕРСИЯ
+   ============================================ */
+
+@media print {
+    .margin-dashboard-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .margin-progress-bar {
+        border: 1px solid #ddd;
+    }
+
+    .portfolio-button {
+        display: none;
+    }
+
+    .badge {
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+    }
+}
