@@ -53,6 +53,7 @@ class ShootingCalculatorV2 {
 
         // Proposal actions
         document.getElementById('copyToClipboardBtn').addEventListener('click', () => this.copyProposalToClipboard());
+        document.getElementById('downloadPdfBtn').addEventListener('click', () => this.downloadProposalAsPDF());
         document.getElementById('printProposalBtn').addEventListener('click', () => window.print());
 
         // Click outside modal to close
@@ -805,10 +806,6 @@ class ShootingCalculatorV2 {
         }
 
         html += `
-                <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 0.9rem;">
-                    <p>Создано с помощью Конструктора Съемки 2.0</p>
-                    <p style="margin-top: 0.5rem;">С уважением, команда производства</p>
-                </div>
             </div>
         `;
 
@@ -824,6 +821,26 @@ class ShootingCalculatorV2 {
             console.error('Ошибка копирования:', err);
             alert('❌ Не удалось скопировать');
         });
+    }
+
+    downloadProposalAsPDF() {
+        const clientName = document.getElementById('clientName').value || 'Клиент';
+        const projectName = document.getElementById('projectName').value || 'Проект';
+        const filename = `КП_${clientName}_${projectName}_${new Date().toLocaleDateString('ru-RU').replace(/\./g, '-')}.pdf`;
+
+        // Используем window.print() с особыми настройками для сохранения как PDF
+        const originalTitle = document.title;
+        document.title = filename;
+
+        // Показываем предупреждение пользователю
+        alert('📥 Сейчас откроется окно печати. Выберите "Сохранить как PDF" или "Microsoft Print to PDF" в качестве принтера.');
+
+        window.print();
+
+        // Восстанавливаем оригинальное название
+        setTimeout(() => {
+            document.title = originalTitle;
+        }, 1000);
     }
 
     printCalculation() {
